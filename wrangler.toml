@@ -2,7 +2,5 @@ name = "korean-name-gen"
 compatibility_date = "2024-01-01"
 pages_build_output_dir = "dist"
 
-# Cloudflare Workers AI 바인딩
-# Cloudflare 대시보드 → Pages → 설정 → Functions → AI Bindings 에서도 설정 가능
-[ai]
-binding = "AI"
+# AI 바인딩은 Cloudflare 대시보드에서 설정:
+# Pages 프로젝트 → Settings → Functions → AI Bindings → Variable name: AI
