@@ -8,7 +8,6 @@ import { t, detectLang } from './i18n/index.js'
 const TABS = ['generator', 'ranking']
 
 const LANGS = [
-  { code: 'ko', flag: '🇰🇷', label: '한국어' },
   { code: 'en', flag: '🇺🇸', label: 'EN' },
   { code: 'ja', flag: '🇯🇵', label: '日本語' },
 ]

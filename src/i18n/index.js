@@ -19,10 +19,9 @@ export function t(lang, path) {
   return result
 }
 
-// 브라우저 언어 자동 감지
+// 브라우저 언어 자동 감지 (한국어 UI 제거 — 외국인 타겟)
 export function detectLang() {
   const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase()
-  if (lang.startsWith('ko')) return 'ko'
   if (lang.startsWith('ja')) return 'ja'
   return 'en'
 }
