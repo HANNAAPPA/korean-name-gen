@@ -8,7 +8,7 @@
  */
 
 export const SITE_CONFIG = {
-  CONTACT_EMAIL: 'contact@yourdomain.com',  // ← 실제 이메일로 교체
+  CONTACT_EMAIL: 'klifestyleforu@gmail.com',
   ADSENSE_CLIENT: 'ca-pub-XXXXXXXXXXXXXXXX', // ← AdSense 승인 후 교체
   SITE_URL: 'https://korean-name-gen.pages.dev', // ← 도메인 연결 후 교체
 }
