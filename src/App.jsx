@@ -3,14 +3,23 @@ import NameGenerator from './components/NameGenerator.jsx'
 import NameRanking from './components/NameRanking.jsx'
 import AdUnit from './components/AdUnit.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy.jsx'
-import { t } from './i18n/index.js'
+import { t, detectLang } from './i18n/index.js'
 
 const TABS = ['generator', 'ranking']
 
+const LANGS = [
+  { code: 'ko', flag: '🇰🇷', label: '한국어' },
+  { code: 'en', flag: '🇺🇸', label: 'EN' },
+  { code: 'ja', flag: '🇯🇵', label: '日本語' },
+]
+
 export default function App() {
-  const [lang, setLang] = useState('ko')
+  const [lang, setLang] = useState(detectLang)
   const [activeTab, setActiveTab] = useState('generator')
   const [showPrivacy, setShowPrivacy] = useState(false)
+  const [showLangMenu, setShowLangMenu] = useState(false)
+
+  const currentLang = LANGS.find((l) => l.code === lang) || LANGS[0]
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-brand-50 to-gray-50">
@@ -26,13 +35,44 @@ export default function App() {
             </p>
           </div>
 
-          {/* 언어 전환 */}
-          <button
-            onClick={() => setLang((l) => (l === 'ko' ? 'en' : 'ko'))}
-            className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm font-semibold text-gray-600 transition hover:bg-gray-50"
-          >
-            {lang === 'ko' ? 'EN' : 'KR'}
-          </button>
+          {/* 언어 선택 드롭다운 */}
+          <div className="relative">
+            <button
+              onClick={() => setShowLangMenu((v) => !v)}
+              className="flex items-center gap-1.5 rounded-lg border border-gray-200 px-3 py-1.5 text-sm font-semibold text-gray-600 transition hover:bg-gray-50"
+            >
+              <span>{currentLang.flag}</span>
+              <span>{currentLang.label}</span>
+              <svg className={`h-3.5 w-3.5 text-gray-400 transition-transform ${showLangMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {showLangMenu && (
+              <>
+                {/* 바깥 클릭 시 닫기 */}
+                <div className="fixed inset-0 z-10" onClick={() => setShowLangMenu(false)} />
+                <div className="absolute right-0 z-20 mt-1.5 w-36 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+                  {LANGS.map((l) => (
+                    <button
+                      key={l.code}
+                      onClick={() => { setLang(l.code); setShowLangMenu(false) }}
+                      className={`flex w-full items-center gap-2.5 px-3 py-2.5 text-sm transition hover:bg-gray-50
+                        ${lang === l.code ? 'bg-brand-50 font-semibold text-brand-700' : 'text-gray-700'}`}
+                    >
+                      <span className="text-base">{l.flag}</span>
+                      <span>{l.label}</span>
+                      {lang === l.code && (
+                        <svg className="ml-auto h-3.5 w-3.5 text-brand-600" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
         {/* 탭 네비게이션 */}
@@ -57,16 +97,15 @@ export default function App() {
         </div>
       </header>
 
-      {/* 메인 레이아웃 — 모바일 단일 컬럼, 데스크탑 사이드바 */}
+      {/* 메인 레이아웃 */}
       <div className="mx-auto max-w-5xl px-4 py-6 lg:flex lg:gap-6">
-        {/* 콘텐츠 영역 */}
         <main className="flex-1 min-w-0 max-w-2xl">
           {activeTab === 'generator' && <NameGenerator lang={lang} />}
           {activeTab === 'ranking'   && <NameRanking   lang={lang} />}
         </main>
 
         {/* 데스크탑 사이드바 광고 */}
-        <aside className="hidden lg:block lg:w-44 shrink-0 pt-0">
+        <aside className="hidden lg:block lg:w-44 shrink-0">
           <div className="sticky top-28">
             <AdUnit type="sidebar" />
           </div>
@@ -75,7 +114,7 @@ export default function App() {
 
       {/* 푸터 */}
       <footer className="mt-8 border-t border-gray-200 bg-white py-6 text-center text-xs text-gray-400">
-        <p>{t(lang, 'footer.copy')}</p>
+        <p>© {new Date().getFullYear()} {t(lang, 'site.title')}</p>
         <div className="mt-1 flex justify-center gap-4">
           <button
             onClick={() => setShowPrivacy(true)}
@@ -84,7 +123,7 @@ export default function App() {
             {t(lang, 'footer.privacy')}
           </button>
           <a
-            href="mailto:contact@mykoreanname.kr"
+            href="mailto:pekh1228@gmail.com"
             className="underline-offset-2 hover:underline"
           >
             {t(lang, 'footer.contact')}

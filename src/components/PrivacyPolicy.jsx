@@ -3,6 +3,8 @@
  * AdSense 심사 필수 요건
  */
 
+const TITLE = { ko: '개인정보처리방침', en: 'Privacy Policy', ja: 'プライバシーポリシー' }
+
 export default function PrivacyPolicy({ lang, onClose }) {
   return (
     <div
@@ -15,7 +17,7 @@ export default function PrivacyPolicy({ lang, onClose }) {
       >
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-bold text-gray-900">
-            {lang === 'ko' ? '개인정보처리방침' : 'Privacy Policy'}
+            {TITLE[lang] || TITLE.en}
           </h2>
           <button
             onClick={onClose}
@@ -27,7 +29,7 @@ export default function PrivacyPolicy({ lang, onClose }) {
           </button>
         </div>
 
-        {lang === 'ko' ? <KoreanContent /> : <EnglishContent />}
+        {lang === 'ko' ? <KoreanContent /> : lang === 'ja' ? <JapaneseContent /> : <EnglishContent />}
       </div>
     </div>
   )
@@ -67,6 +69,40 @@ function KoreanContent() {
         <h3 className="font-semibold text-gray-800">6. 문의</h3>
         <p className="mt-1">개인정보 처리에 관한 문의사항은 아래 이메일로 연락해주세요.<br />
           <a href="mailto:contact@mykoreanname.kr" className="text-brand-600 underline">contact@mykoreanname.kr</a>
+        </p>
+      </section>
+    </div>
+  )
+}
+
+function JapaneseContent() {
+  return (
+    <div className="space-y-4 text-sm text-gray-600">
+      <p className="text-xs text-gray-400">最終更新: 2024年12月</p>
+      <section>
+        <h3 className="font-semibold text-gray-800">1. 収集する個人情報</h3>
+        <p className="mt-1">本サービスは、名前生成機能の提供のために、お客様が入力された名前テキストを一時的に処理します。このデータはサーバーに保存されず、AI処理後に直ちに削除されます。</p>
+      </section>
+      <section>
+        <h3 className="font-semibold text-gray-800">2. Google AdSense</h3>
+        <p className="mt-1">本サービスはGoogle AdSenseを通じて広告を表示します。Googleはクッキーを使用して、お客様の興味に合わせた広告を配信する場合があります。GoogleのプライバシーポリシーはA<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-brand-600 underline">こちら</a>でご確認ください。</p>
+      </section>
+      <section>
+        <h3 className="font-semibold text-gray-800">3. クッキー</h3>
+        <p className="mt-1">本サービスは広告配信目的で第三者（Google）のクッキーを使用します。ブラウザの設定でクッキーを無効にできますが、一部機能が制限される場合があります。</p>
+      </section>
+      <section>
+        <h3 className="font-semibold text-gray-800">4. 外部サービス</h3>
+        <p className="mt-1">名前生成機能はCloudflare Workers AIを通じて処理されます。CloudflareのプライバシーポリシーはA<a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" className="text-brand-600 underline">こちら</a>でご確認ください。</p>
+      </section>
+      <section>
+        <h3 className="font-semibold text-gray-800">5. 未成年者</h3>
+        <p className="mt-1">本サービスは13歳未満の児童から意図的に個人情報を収集しません。</p>
+      </section>
+      <section>
+        <h3 className="font-semibold text-gray-800">6. お問い合わせ</h3>
+        <p className="mt-1">プライバシーに関するご質問は下記メールアドレスまでお問い合わせください。<br />
+          <a href="mailto:pekh1228@gmail.com" className="text-brand-600 underline">pekh1228@gmail.com</a>
         </p>
       </section>
     </div>
