@@ -1,8 +1,8 @@
 # 나만의 한국 이름 (My Korean Name)
 
 외국인을 위한 한국어 이름 작명 서비스 — 수익형 웹앱
-**배포 주소**: https://korean-name-gen.pages.dev
-**GitHub**: https://github.com/HANNAAPPA/korean-name-gen
+**배포 주소**: Cloudflare Pages (자동 배포)
+**스택**: React + Vite + Tailwind + Cloudflare Workers AI
 
 ---
 

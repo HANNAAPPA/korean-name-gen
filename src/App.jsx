@@ -4,6 +4,7 @@ import NameRanking from './components/NameRanking.jsx'
 import AdUnit from './components/AdUnit.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy.jsx'
 import { t, detectLang } from './i18n/index.js'
+import { SITE_CONFIG } from './config.js'
 
 const TABS = ['generator', 'ranking']
 
@@ -122,7 +123,7 @@ export default function App() {
             {t(lang, 'footer.privacy')}
           </button>
           <a
-            href="mailto:pekh1228@gmail.com"
+            href={`mailto:${SITE_CONFIG.CONTACT_EMAIL}`}
             className="underline-offset-2 hover:underline"
           >
             {t(lang, 'footer.contact')}
