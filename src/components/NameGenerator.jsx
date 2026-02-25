@@ -11,8 +11,15 @@ import { t } from '../i18n/index.js'
 
 const STEP = { INPUT: 'input', MEANING: 'meaning', RESULT: 'result' }
 
+const GENDER_OPTIONS = [
+  { value: 'female',      en: '♀ Female',          ja: '♀ 女性' },
+  { value: 'male',        en: '♂ Male',             ja: '♂ 男性' },
+  { value: 'unspecified', en: '○ Prefer not to say', ja: '○ 未回答' },
+]
+
 export default function NameGenerator({ lang }) {
   const [step, setStep] = useState(STEP.INPUT)
+  const [gender, setGender] = useState('unspecified')
   const [inputName, setInputName] = useState('')
   const [originalMeaning, setOriginalMeaning] = useState('')
   const [editedMeaning, setEditedMeaning] = useState('')
@@ -94,6 +101,28 @@ export default function NameGenerator({ lang }) {
       {/* STEP 1: 이름 입력 */}
       {step === STEP.INPUT && (
         <form onSubmit={handleSubmitName} className="rounded-2xl bg-white p-6 shadow-sm">
+          {/* 성별 선택 */}
+          <div className="mb-5">
+            <p className="mb-2 text-sm font-semibold text-gray-700">
+              {lang === 'ja' ? '性別' : 'Gender'}
+            </p>
+            <div className="flex gap-2">
+              {GENDER_OPTIONS.map(g => (
+                <button
+                  key={g.value}
+                  type="button"
+                  onClick={() => setGender(g.value)}
+                  className={`flex-1 rounded-xl border-2 py-2 text-xs font-semibold transition
+                    ${gender === g.value
+                      ? 'border-brand-500 bg-brand-50 text-brand-700'
+                      : 'border-gray-200 text-gray-500 hover:border-brand-300'}`}
+                >
+                  {lang === 'ja' ? g.ja : g.en}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <label className="block text-sm font-semibold text-gray-700">
             {t(lang, 'generator.inputLabel')}
           </label>
@@ -233,6 +262,7 @@ export default function NameGenerator({ lang }) {
               nameData={generatedNames[selectedIndex]}
               originalName={inputName}
               lang={lang}
+              gender={gender}
             />
           )}
 

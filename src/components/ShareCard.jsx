@@ -7,6 +7,7 @@
 
 import { useRef, useState } from 'react'
 import html2canvas from 'html2canvas'
+import HanbokCharacter from './HanbokCharacter.jsx'
 
 /* ─── 언어별 라벨 ─── */
 const LABELS = {
@@ -122,7 +123,7 @@ async function shareNative(nameData) {
 }
 
 /* ─── 메인 컴포넌트 ─── */
-export default function ShareCard({ nameData, originalName, lang }) {
+export default function ShareCard({ nameData, originalName, lang, gender = 'unspecified' }) {
   const cardRef = useRef(null)
   const [copied, setCopied]       = useState(false)
   const [capturing, setCapturing] = useState(false)
@@ -236,9 +237,9 @@ export default function ShareCard({ nameData, originalName, lang }) {
             )}
           </div>
 
-          {/* 오른쪽: 8비트 캐릭터 */}
-          <div style={{ paddingTop: '32px' }}>
-            <PixelCharacter style={nameData.style} name={nameData.korean} />
+          {/* 오른쪽: 한복 캐릭터 + 경복궁 */}
+          <div style={{ paddingTop: '8px' }}>
+            <HanbokCharacter gender={gender} />
           </div>
         </div>
 
